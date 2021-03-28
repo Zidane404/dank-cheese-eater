@@ -8,11 +8,16 @@ with open('./config.json') as f:
 token = config.get('token')
 cheese_delay = config.get('use_cheese_delay')
 confirm_cheese_delay = config.get('confirm_cheese_delay')
+cheese_amount = config.get('cheese_amount')
 
 
 bot = commands.Bot(command_prefix=config.get('prefix'), self_bot=True)
 bot.remove_command('help')
 
+@bot.event
+async def on_ready():
+    print("Successfully Authorised as: " + bot.user.name + " UID: (" + str(bot.user.id) + ")")
+    print('Use $cheese [amount] in any channel to begin! ')
 
 @bot.command()
 async def cheese(ctx, amount: int):
@@ -28,3 +33,4 @@ async def cheese(ctx, amount: int):
     return
 
 bot.run(token, bot=False)
+
